@@ -108,18 +108,6 @@ button, summary, select { cursor: pointer; }
 .sidebar nav a[aria-current] { background: #f4edff; color: #422780; box-shadow: 0 4px 10px #25115333; }
 .nav-icon { flex: 0 0 1.7rem; height: 1.7rem; display: grid; place-items: center; border-radius: 7px; font-size: 1.17rem; line-height: 1; background: #ffffff16; }
 [aria-current] .nav-icon { background: #e8dafb; }
-.sidebar-end { margin-top: auto; padding-top: 1.4rem; }
-.guide-box {
-  display: grid;
-  background: #ffffff14;
-  border: 1px solid #ffffff28;
-  border-radius: 15px;
-  padding: .9rem;
-}
-.guide-title { font-size: 1rem; font-weight: 700; }
-.guide-time { font-size: .86rem; margin: .15rem 0 .65rem; color: #f1e6ff; }
-.guide-button { background: #fff; color: var(--deep); border: 0; border-radius: 9px; min-height: 41px; font-size: .88rem; font-weight: 730; padding: .45rem .7rem; }
-.guide-button:hover { background: #eadbff; }
 .sidebar :focus-visible { outline-color: #f4e5ff; }
 .shell { width: min(100%, 1360px); margin-inline: auto; padding: 0 clamp(1.1rem, 3vw, 2.65rem) 2.3rem; min-width: 0; }
 .workspace-header {
@@ -381,10 +369,6 @@ dialog::backdrop { background: #28164db0; }
   .sidebar { position: static; min-height: auto; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .45rem; padding: .67rem 1.1rem .55rem; }
   .sidebar nav { grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
   .sidebar nav a { justify-content: center; }
-  .sidebar-end { grid-column: 2; grid-row: 1; margin: 0; padding: 0; }
-  .guide-box { display: block; border: 0; background: transparent; padding: 0; }
-  .guide-title, .guide-time { display: none; }
-  .guide-button { min-height: 39px; }
   .workspace-header { min-height: 57px; }
 }
 @media (max-width: 680px) {
@@ -429,13 +413,6 @@ dialog::backdrop { background: #28164db0; }
       <a href="#cotizacion" data-page="cotizacion"><span class="nav-icon" aria-hidden="true">▤</span>Cotización</a>
       <a href="#kits" data-page="kits"><span class="nav-icon" aria-hidden="true">◇</span>Kits</a>
     </nav>
-    <div class="sidebar-end">
-      <div class="guide-box">
-        <span class="guide-title">Sustentación</span>
-        <span class="guide-time">Recorrido de 4 min 45 s</span>
-        <button type="button" class="guide-button" id="show-guide">Abrir guía</button>
-      </div>
-    </div>
   </aside>
   <main id="main" class="shell">
     <header class="workspace-header">
@@ -541,18 +518,6 @@ dialog::backdrop { background: #28164db0; }
       <details class="panel math-panel"><summary><span><strong>Ver comprobación vectorial</strong><small>Proyección en ℝ² y combinación lineal en ℝ³</small></span></summary><div id="kit-math"></div></details>
     </section>
   </main>
-  <dialog id="guide" aria-labelledby="guide-title">
-    <div class="dialog-header"><h2 id="guide-title">Guía de demostración</h2><form method="dialog"><button class="secondary" aria-label="Cerrar guía">Cerrar</button></form></div>
-    <p>Los datos precargados corresponden al caso académico del taller. Puedes reemplazarlos por las mediciones de una semana real.</p>
-    <ol class="timeline">
-      <li><strong>0:00–0:40 · Problema.</strong> Expliquen cómo los límites de diseño, máquina e insumos afectan las decisiones y el costo de cada pedido.</li>
-      <li><strong>0:40–2:05 · Planeación.</strong> Muestren la semana base, el determinante −450, la inversa y la comprobación. Cambien a $800.000 y expliquen por qué una cantidad negativa impide fabricar el plan de uso total.</li>
-      <li><strong>2:05–3:10 · Cotización.</strong> Carguen el ejemplo de 40 camisetas, 20 mugs y 10 gorras. Expliquen cómo la matriz da 60 hojas y 440 ml de tinta, y cómo el producto escalar da un costo de $700.000.</li>
-      <li><strong>3:10–4:15 · Kits.</strong> Muestren que el pedido (8, 5, 3) se arma con 2 kits Cumpleaños y 3 kits Empresa. Prueben un pedido fuera del subespacio.</li>
-      <li><strong>4:15–4:45 · Cierre.</strong> Resuman cómo el cálculo ayuda a decidir cantidades, comprar insumos y organizar pedidos. Los resultados dependen de los consumos y precios ingresados.</li>
-    </ol>
-    <p>Graben la demostración en Loom, con pantalla y cámara, e incluyan a todos los integrantes dentro del límite de cinco minutos.</p>
-  </dialog>
   <script>
 "use strict";
 
@@ -960,7 +925,6 @@ $("plan-result").addEventListener("click", event => {
   usePlanForQuote();
   location.hash = "cotizacion";
 });
-$("show-guide").addEventListener("click", () => $("guide").showModal());
 
 const navigation = [...document.querySelectorAll("[data-page]")];
 function updatePage(focusHeading = false) {
